@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адреса</title>
+    <link rel="stylesheet" href="/static/css/style1.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/menu.css">
+</head>
+<body>
+<div id="header">
+    <ul class="main-menu">
+        <li class="active"><a href="#url">Головна</a></li>
+        <li class="menu-children">
+            <a href="#url">Послуги</a>
+            <ul>
+                <li><a href="#url">Продаж</a></li>
+                <li><a href="#url">Покупка</a></li>
+                <li class="menu-children">
+                    <a href="#url">Підрозділ</a>
+                    <ul>
+                        <li><a href="#url">Підрозділ 1</a></li>
+                        <li><a href="#url">Підрозділ 2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+                <input type="submit" value="Споживач"/>
+            </form>
+        </li>
+        <li>
+            <form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
+                <input type="submit" value="Адреса"/>
+            </form>
+        </li>
+        <li><a th:href="@{/addresses/{id}(id=${person.getId()})}">Лічильники</a></li>
+        <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+    </ul>
+</div>
+
+<!--    <form>-->
+<!--        <p th:text="${'Місто: '+ address.getCity()}"></p>-->
+<!--        <p th:text="${'Вулиця: ' + address.getStreet()}"></p>-->
+<!--        <p th:text="${'Номер будинку: '+ address.getHouse()+address.getLetter()}"></p>-->
+<!--        <p th:text="${'Номер під`їзду: '+ address.getEntrance()}"></p>-->
+<!--        <p th:text="${'Номер квартири: '+address.getApartment()}"></p>-->
+<!--    </form>-->
+<form>
+    <table>
+        <caption></caption>
+        <thead>
+        <tr>
+            <th>Адреса</th>
+            <th>№ лічильника</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="address:${addresses}">
+            <td th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
+        address.getHouse()+address.getLetter()+', під`їзд '+address.getEntrance()+
+        ', квартира '+address.getApartment()}"> </td>
+
+<!--            <td>-->
+<!--                <div th:each="address:${addresses}">-->
+<!--                    <form th:method="GET" th:action="@{/addresses/{id}(id=${addresses.get(address.getCity())})}">-->
+<!--                        <input type="submit" th:value="${address.getCity()}">-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </td>-->
+            <td>
+                <form th:method="GET" th:action="@{/meters/save/{address_id}(address_id=${address.getId()})}">
+                    <input type="submit" value="Додати лічильник"/>
+                </form>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</form>
+<form th:method="GET" th:action="@{/addresses/save/{owner_id}(owner_id=${person.getId()})}">
+    <input type="submit" value="Додати адресу">
+</form>
+<!--    <form th:method="GET" th:action="@{/addresses/edit/{id}(id=${address.getId()})}">-->
+<!--        <input type="submit" value="Змінити адресу"/>-->
+<!--    </form>-->
+<!--    <form th:method="DELETE" th:action="@{/addresses/{id}(id=${address.getId()})}">-->
+<!--        <input type="submit" value="Видалити адресу"/>-->
+<!--    </form>-->
+<!--    <form th:method="GET" th:action="@{/meters/save/{address_id}(address_id=${address.getId()})}">-->
+<!--        <input type="submit" value="Додати лічильник"/>-->
+<!--    </form>-->
+
+</body>
+</html>

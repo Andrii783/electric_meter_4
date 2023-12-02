@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перелік усіх адрес</title>
+    <link rel="stylesheet" th:href="@{../static/css/style1.css}">
+    <link rel="stylesheet" th:href="@{../static/css/menu.css}">
+
+<body>
+<ul class="main-menu">
+    <li class="active"><a href="#url">Головна</a></li>
+    <li class="menu-children">
+        <a href="#url">Послуги</a>
+        <ul>
+            <li><a href="#url">Продаж</a></li>
+            <li><a href="#url">Покупка</a></li>
+            <li class="menu-children">
+                <a href="#url">Підрозділ</a>
+                <ul>
+                    <li><a href="#url">Підрозділ 1</a></li>
+                    <li><a href="#url">Підрозділ 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="Споживач"/>
+    </form></li>
+    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
+        <input type="submit" value="Адреса"/>
+    </form></li>
+    <li><a href="/ьуеук">Лічильники</a></li>
+    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+</ul>
+<form>
+<table>
+    <caption></caption>
+    <thead>
+    <tr>
+        <th>Адреса</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Используйте Thymeleaf для отображения данных из контроллера -->
+    <tr th:each="address : ${addresses}">
+        <td th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
+        address.getHouse()+address.getLetter()+', під`їзд '+address.getEntrance()+
+        ', квартира '+address.getApartment()}"></td>
+
+<!--        <td th:text="${index.date}"></td>-->
+        <td>
+            <form th:method="GET" th:action="@{/indexes/save}">
+                <input type="submit" value="Додати показники"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/indexes/{address_id}(address_id=${address.id})}">
+                <input type="submit" value="Усі показники"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</form>
+<form th:method="GET" th:action="@{/addresses/save}">
+    <input type="submit" value="Додати адресу">
+</form>
+
+</body>
+</html>

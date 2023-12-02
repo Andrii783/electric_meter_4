@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Динамическая таблица</title>
+    <link rel="stylesheet" th:href="@{../static/css/style1.css}">
+    <link rel="stylesheet" th:href="@{../static/css/menu.css}">
+</head>
+<body>
+<ul class="main-menu">
+    <li class="active"><a href="#url">Головна</a></li>
+    <li class="menu-children">
+        <a href="#url">Послуги</a>
+        <ul>
+            <li><a href="#url">Продаж</a></li>
+            <li><a href="#url">Покупка</a></li>
+            <li class="menu-children">
+                <a href="#url">Підрозділ</a>
+                <ul>
+                    <li><a href="#url">Підрозділ 1</a></li>
+                    <li><a href="#url">Підрозділ 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><a href="#url">Новини</a></li>
+    <li><a href="#url">Фотогалерея</a></li>
+    <li><a href="#url">Контакти</a></li>
+    <li><a href="http://localhost:808/index">Увійти/Зареєструватися</a> </li>
+</ul>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Используйте Thymeleaf для отображения данных из контроллера -->
+    <tr th:each="person : ${people}">
+        <td th:text="${person.id}"></td>
+        <td th:text="${person.firstName}"></td>
+        <td th:text="${person.phone}"></td>
+        <td><form th:method="GET" th:action="@{/people/new}">
+            <input type="submit" value="Додати користувача"/>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="add-button">Добавить</button>
+</body>
+</html>

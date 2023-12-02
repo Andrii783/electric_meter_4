@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../static/css/style1.css}">
+    <link rel="stylesheet" th:href="@{../static/css/menu.css}">
+</head>
+<body>
+<ul class="main-menu">
+    <li class="active"><a href="#url">Головна</a></li>
+    <li class="menu-children">
+        <a href="#url">Послуги</a>
+        <ul>
+            <li><a href="#url">Продаж</a></li>
+            <li><a href="#url">Покупка</a></li>
+            <li class="menu-children">
+                <a href="#url">Підрозділ</a>
+                <ul>
+                    <li><a href="#url">Підрозділ 1</a></li>
+                    <li><a href="#url">Підрозділ 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="Споживач"/>
+    </form></li>
+    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
+        <input type="submit" value="Адреса"/>
+    </form></li>
+    <li><a href="/ьуеук">Лічильники</a></li>
+    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+</ul>
+<form th:method="PATCH" th:action="@{/addresses/{id}(id=${address.getId()})}" th:object="${address}">
+    <label for="city">Місто: </label>
+    <input type="text" th:field="*{city}" id="city">
+    <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+    <br>
+    <label for="street">Вулиця: </label>
+    <input type="text" th:field="*{street}" id="street">
+    <div style="color:red" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></div>
+    <br>
+    <label for="house">Дім: </label>
+    <input type="text" th:field="*{house}" id="house">
+    <div style="color:red" th:if="${#fields.hasErrors('house')}" th:errors="*{house}"></div>
+    <br>
+    <label for="letter">Літера: </label>
+    <input type="text" th:field="*{letter}" id="letter">
+    <div style="color:red" th:if="${#fields.hasErrors('letter')}" th:errors="*{letter}"></div>
+    <br>
+    <label for="entrance">Під`їзд: </label>
+    <input type="text" th:field="*{entrance}" id="entrance">
+    <div style="color: red" th:if="${#fields.hasErrors('entrance')}" th:errors="*{entrance}"></div>
+    <br>
+    <label for="apartment">Квартира: </label>
+    <input type="text" th:field="*{apartment}" id="apartment">
+    <div style="color: red" th:if="${#fields.hasErrors('apartment')}" th:errors="*{apartment}"></div>
+    <br>
+    <input type="submit" value="Зберегти">
+</form>
+
+</body>
+</html>

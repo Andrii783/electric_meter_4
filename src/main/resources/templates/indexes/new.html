@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/menu.css">
+</head>
+<body>
+<ul class="main-menu">
+    <li class="active"><a href="#url">Головна</a></li>
+    <li class="menu-children">
+        <a href="#url">Послуги</a>
+        <ul>
+            <li><a href="#url">Продаж</a></li>
+            <li><a href="#url">Покупка</a></li>
+            <li class="menu-children">
+                <a href="#url">Підрозділ</a>
+                <ul>
+                    <li><a href="#url">Підрозділ 1</a></li>
+                    <li><a href="#url">Підрозділ 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><form th:method="GET" th:action="@{/people/{id}(id=${meter_id})}">
+        <input type="submit" value="Споживач"/>
+    </form></li>
+    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${owner_id})}">
+        <input type="submit" value="Адреса"/>
+    </form></li>
+    <li><a href="/ьуеук">Лічильники</a></li>
+    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+</ul>
+
+<form th:method="POST" th:action="@{/indexes/save/{meter_id}(meter_id=${meter_id})}">
+    <label for="index">      Показники лічильника: </label>
+    <input type="text" name="index" id="index">
+
+    <br>
+    <input type="submit" value="         Зберегти         ">
+</form>
+</body>
+</html>
