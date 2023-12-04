@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сторінка користувача</title>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style1.css}">
     <link rel="stylesheet" th:href="@{/static/css/menu.css}">
 </head>
 <body>
@@ -24,18 +24,37 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" value="Споживач"/>
-    </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
-        <input type="submit" value="Адреса"/>
-    </form></li>
+    <!--    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">-->
+    <!--        <input type="submit" value="Споживач"/>-->
+    <!--    </form></li>-->
+    <!--    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">-->
+    <!--        <input type="submit" value="Адреса"/>-->
+    <!--    </form></li>-->
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
-<form>
-<p th:text="${meter.getIndexes()}"></p>
-    <p th:text="${meter.date}"></p>
+<table>
+    <caption></caption>
+    <thead>
+    <tr>
+        <th>Показники лічильника</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>
+            <div th:each="index:${indexes}">
+                <a th:href="@{/indexes/edit/{id}(id=${index.getId()})}"
+                   th:text="${index.getIndex()+'    Дата:'+index.getDate()}"></a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<form th:method="GET" th:action="@{/indexes/save/{meter_id}(meter_id=${meter_id})}">
+    <input type="submit" value="Додати показник">
 </form>
 </body>
 </html>

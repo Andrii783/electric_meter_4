@@ -59,7 +59,7 @@ public class AddressController {
         address.setOwner(personService.getById(owner_id));
         Address address1 = addressService.save(address);
 
-        return "redirect:/addresses/" + address1.getId();
+        return "redirect:/addresses/" + address1.getOwner();
     }
 
     @GetMapping("/edit/{id}")

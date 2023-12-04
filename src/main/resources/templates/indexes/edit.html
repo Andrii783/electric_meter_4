@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{../static/css/style.css}">
-    <link rel="stylesheet" th:href="@{../static/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style1.css}">
+    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
 </head>
 <body>
 <ul class="main-menu">
@@ -24,24 +24,24 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" value="Споживач"/>
-    </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
-        <input type="submit" value="Адреса"/>
-    </form></li>
+<!--    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">-->
+<!--        <input type="submit" value="Споживач"/>-->
+<!--    </form></li>-->
+<!--    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">-->
+<!--        <input type="submit" value="Адреса"/>-->
+<!--    </form></li>-->
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
-<form th:method="PUTCH" th:action="@{/meters/{id}(id=${meter.getId()})}" th:object="${meter}">
-    <label for="number">Номер: </label>
-    <input type="text" th:field="*{number}" id="number">
-    <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></div>
+<form th:method="PATCH" th:action="@{/indexes/{id}(id=${index.getId()})}" th:object="${index}">
+    <label for="index">Показники: </label>
+    <input type="text" th:field="*{index}" id="index">
+    <div style="color:red" th:if="${#fields.hasErrors('index')}" th:errors="*{index}"></div>
     <br>
-    <label for="indexes">Показники лічильника: </label>
-    <input type="text" th:field="*{indexes}" id="indexes">
-    <div style="color:red" th:if="${#fields.hasErrors('indexes')}" th:errors="*{indexes}"></div>
-    <br>
+<!--    <label for="date">Дата: </label>-->
+<!--    <input type="text" th:field="*{date}" id="date">-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>-->
+<!--    <br>-->
     <input type="submit" value="Зберегти">
 </form>
 

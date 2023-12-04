@@ -39,4 +39,5 @@ public class IndexService {
         return jdbcTemplate.query("SELECT * FROM index WHERE meter_id=?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Index.class));
     }
+
 }

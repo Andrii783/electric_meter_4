@@ -53,32 +53,19 @@
         <thead>
         <tr>
             <th>Адреса</th>
-            <th>№ лічильника</th>
-            <th></th>
-            <th></th>
+
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="address:${addresses}">
-            <td th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
+        <tr>
+            <td>
+            <div th:each="address:${addresses}">
+                <a th:href="@{/meters/{id}(id=${address.getId()})}"
+             th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
         address.getHouse()+address.getLetter()+', під`їзд '+address.getEntrance()+
-        ', квартира '+address.getApartment()}"> </td>
-
-<!--            <td>-->
-<!--                <div th:each="address:${addresses}">-->
-<!--                    <form th:method="GET" th:action="@{/addresses/{id}(id=${addresses.get(address.getCity())})}">-->
-<!--                        <input type="submit" th:value="${address.getCity()}">-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </td>-->
-            <td>
-                <form th:method="GET" th:action="@{/meters/save/{address_id}(address_id=${address.getId()})}">
-                    <input type="submit" value="Додати лічильник"/>
-                </form>
-            </td>
-            <td>
-
+        ', квартира '+address.getApartment()}"></a>
+            </div>
             </td>
         </tr>
         </tbody>

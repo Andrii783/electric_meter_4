@@ -41,7 +41,7 @@ public class MeterController {
     @GetMapping("/{address_id}")
     public String getByAllMeterAddressId(Model model, @PathVariable("address_id") int address_id) {
         Address address = addressService.getById(address_id);
-        model.addAttribute("person",address.getOwner());
+
         model.addAttribute("meters", meterService.getAllMeterByAddressId(address_id));
         model.addAttribute("address_id",address_id);
         return "meters/meter";

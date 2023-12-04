@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import palko.electric_meter_4.model.Address;
 import palko.electric_meter_4.model.Index;
+import palko.electric_meter_4.model.Meter;
+import palko.electric_meter_4.model.Person;
 import palko.electric_meter_4.service.AddressService;
 import palko.electric_meter_4.service.IndexService;
 import palko.electric_meter_4.service.MeterService;
@@ -39,12 +42,18 @@ public class IndexController {
 
     @GetMapping("/{meter_id}")
     public String getByIndexMeter(Model model, @PathVariable("meter_id") int meter_id) {
-        model.addAttribute("index", indexService.getAllIndexByMeterId(meter_id));
+        model.addAttribute("indexes", indexService.getAllIndexByMeterId(meter_id));
+        //model.addAttribute("indexes",indexService.getAll());
+        model.addAttribute("meter_id",meter_id);
+
+        //        Meter meter = meterService.save(meter_id);
+//        Address address = addressService.save(meter);
+//        model.addAttribute("person", personService.getById(address));
         return "indexes/index";
     }
 
-     //   @GetMapping("/{id}")
- //   public String getIndexesId(Model model, @PathVariable("id") int id, @ModelAttribute("address") Address address) {
+    //   @GetMapping("/{id}")
+    //   public String getIndexesId(Model model, @PathVariable("id") int id, @ModelAttribute("address") Address address) {
 //        model.addAttribute("indexes", indexesDAO.getById(id));
 //        model.addAttribute("address",addressDAO.getById(id));
 //        Optional<Address> meterAddress = indexesDAO.getById();
@@ -54,21 +63,21 @@ public class IndexController {
 //        return "indications/indexes";
 //    }
     @GetMapping("/save/{meter_id}")
-    public String saveIndexes(Model model, @PathVariable("meter_id")int meter_id) {
+    public String saveIndexes(Model model, @PathVariable("meter_id") int meter_id) {
 
-        model.addAttribute("meter_id",meter_id);
+        model.addAttribute("meter_id", meter_id);
         return "indexes/new";
     }
 
     @PostMapping("/save/{meter_id}")
-    public String save(@RequestParam("index")int index,@PathVariable("meter_id")int meter_id) {
-        Index index1=new Index();
+    public String save(@RequestParam("index") int index, @PathVariable("meter_id") int meter_id) {
+        Index index1 = new Index();
         index1.setIndex(index);
         index1.setDate(LocalDateTime.now());
         index1.setMeter(meterService.getById(meter_id));
         indexService.save(index1);
 
-        return "redirect:/meters/"+meterService.getById(meter_id).getAddress().getId();
+        return "redirect:/meters/" + meterService.getById(meter_id).getAddress().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -83,8 +92,10 @@ public class IndexController {
         if (bindingResult.hasErrors()) {
             return "indexes/edit";
         }
-        indexService.edit(index, id);
-        return "redirect:/indexes";
+        Index index1 = indexService.getById(id);
+        index1.setIndex(index.getIndex());
+        indexService.edit(index1, id);
+        return "redirect:/indexes/"+index1.getMeter().getId();
     }
 
     @GetMapping("/delete/{id}")
