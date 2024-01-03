@@ -24,16 +24,20 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" value="Споживач"/>
-    </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
-        <input type="submit" value="Адреса"/>
-    </form></li>
+    <li>
+        <a th:href="@{/people/{id}(id=${person.getId()})}">Споживач</a>
+    </li>
+    <li>
+        <a th:href="@{/addresses/{id}(id=${person.getId()})}">Адреса</a>
+    </li>
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
 <form th:method="POST" th:action="@{/meters/save/{address_id}(address_id=${address_id})}" th:object="${meter}">
+    <label for="name">Назва або примітка: </label>
+    <input type="text" th:field="*{name}" id="name">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br>
     <label for="number">Номер: </label>
     <input type="text" th:field="*{number}" id="number">
     <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></div>

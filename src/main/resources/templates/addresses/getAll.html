@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,48 +24,47 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" value="Споживач"/>
-    </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
-        <input type="submit" value="Адреса"/>
-    </form></li>
+    <li>
+        <a th:href="@{/people/{id}(id=${person.getId()})}">Споживач</a>
+    </li>
+    <li>
+        <a th:href="@{/addresses/{id}(id=${person.getId()})}">Адреса</a>
+    </li>
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
 <form>
-<table>
-    <caption></caption>
-    <thead>
-    <tr>
-        <th>Адреса</th>
+    <table>
+        <caption></caption>
+        <thead>
+        <tr>
+            <th>Адреса</th>
 
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Используйте Thymeleaf для отображения данных из контроллера -->
-    <tr th:each="address : ${addresses}">
-        <td th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="address : ${addresses}">
+            <td th:text="${'Місто '+address.getCity()+', вулиця '+address.getStreet()+', дім '+
         address.getHouse()+address.getLetter()+', під`їзд '+address.getEntrance()+
         ', квартира '+address.getApartment()}"></td>
 
-<!--        <td th:text="${index.date}"></td>-->
-        <td>
-            <form th:method="GET" th:action="@{/indexes/save}">
-                <input type="submit" value="Додати показники"/>
-            </form>
-        </td>
-        <td>
-            <form th:method="GET" th:action="@{/indexes/{address_id}(address_id=${address.id})}">
-                <input type="submit" value="Усі показники"/>
-            </form>
-        </td>
-    </tr>
-    </tbody>
+            <!--        <td th:text="${index.date}"></td>-->
+            <td>
+                <form th:method="GET" th:action="@{/indexes/save}">
+                    <input type="submit" value="Додати показники"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="GET" th:action="@{/indexes/{address_id}(address_id=${address.id})}">
+                    <input type="submit" value="Усі показники"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
 
-</table>
+    </table>
 </form>
 <form th:method="GET" th:action="@{/addresses/save}">
     <input type="submit" value="Додати адресу">

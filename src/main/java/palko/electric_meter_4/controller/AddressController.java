@@ -52,14 +52,15 @@ public class AddressController {
 
     @PostMapping("/save/{owner_id}")
     public String save(@ModelAttribute("address") @Valid Address address,
-                       BindingResult bindingResult, @PathVariable("owner_id") int owner_id) {
+                       BindingResult bindingResult, @PathVariable("owner_id") int owner_id,Model model) {
         if (bindingResult.hasErrors()) {
             return "addresses/newAddress";
         }
+        model.addAttribute("person",personService.getById(owner_id));
         address.setOwner(personService.getById(owner_id));
         Address address1 = addressService.save(address);
 
-        return "redirect:/addresses/" + address1.getOwner();
+        return "redirect:/addresses/" + address1.getOwner().getId();
     }
 
     @GetMapping("/edit/{id}")

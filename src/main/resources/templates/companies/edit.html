@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лічильники</title>
+    <title>Сторінка редагування</title>
     <link rel="stylesheet" th:href="@{/static/css/style1.css}">
     <link rel="stylesheet" th:href="@{/static/css/menu.css}">
+
 </head>
 <body>
+
 <ul class="main-menu">
     <li class="active"><a href="#url">Головна</a></li>
     <li class="menu-children">
@@ -33,15 +35,24 @@
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
-<form>
-<div th:each="meter:${meters}">
-    <a th:href="@{/meters/{id}(id=${meter.getId()})}"
-       th:text="${meter.getName()+', номер '+meter.getNumber()+', показники '+meter.getIndex()}"></a>
-</div>
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <label for="firstName">Ім'я: </label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+    <br>
+    <label for="secondName">Прізвище: </label>
+    <input type="text" th:field="*{secondName}" id="secondName">
+    <div style="color:red" th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}"></div>
+    <br>
+    <label for="phone">Телефон: </label>
+    <input type="tel" th:field="*{phone}" id="phone">
+    <div style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+    <br>
+    <label for="email">Електронна пошта: </label>
+    <input type="email" th:field="*{email}" id="email">
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <br>
+    <input type="submit" value="Зберегти">
 </form>
-<form th:method="GET" th:action="@{/meters/save/{address_id}(address_id=${address.getId()})}">
-    <input type="submit" value="Додати лічильник"/>
-</form>
-
 </body>
 </html>

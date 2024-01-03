@@ -24,13 +24,12 @@
             </li>
         </ul>
     </li>
-<!--    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">-->
-<!--        <input type="submit" value="Споживач"/>-->
-<!--    </form></li>-->
-<!--    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">-->
-<!--        <input type="submit" value="Адреса"/>-->
-<!--    </form>-->
-<!--    </li>-->
+    <li>
+        <a th:href="@{/people/{id}(id=${person.getId()})}">Споживач</a>
+    </li>
+    <li>
+        <a th:href="@{/addresses/{id}(id=${person.getId()})}">Адреса</a>
+    </li>
     <li><a href="/ьуеук">Лічильники</a></li>
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
@@ -50,7 +49,7 @@
             <td>
                 <div th:each="meter:${meters}">
                     <a th:href="@{/indexes/{id}(id=${meter.getId()})}"
-                       th:text="${' Лічильник № '+meter.getNumber()}"></a>
+                       th:text="${meter.getName()+', лічильник № '+meter.getNumber()}"></a>
                 </div>
             </td>
 

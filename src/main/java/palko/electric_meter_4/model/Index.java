@@ -2,8 +2,15 @@ package palko.electric_meter_4.model;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="index")
 public class Index {
     @Id
@@ -19,44 +26,4 @@ public class Index {
     @JoinColumn(name = "meter_id",referencedColumnName = "id")
     private Meter meter;
 
-    public Index() {
-    }
-
-    public Index(int id, int indexes, LocalDateTime date) {
-        this.id = id;
-        this.index = indexes;
-        this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int indexes) {
-        this.index = indexes;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public Meter getMeter() {
-        return meter;
-    }
-
-    public void setMeter(Meter meter) {
-        this.meter = meter;
-    }
 }

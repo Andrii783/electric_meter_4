@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +24,10 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+    <li><form th:method="GET" th:action="@{/people/1}">
         <input type="submit" value="Споживач"/>
     </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
+    <li><form th:method="GET" th:action="@{/addresses/1}">
         <input type="submit" value="Адреса"/>
     </form></li>
     <li><a href="/ьуеук">Лічильники</a></li>

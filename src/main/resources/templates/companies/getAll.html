@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лічильники</title>
-    <link rel="stylesheet" th:href="@{/static/css/style1.css}">
-    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
+    <title>Сторінка користувачів</title>
+    <link rel="stylesheet" th:href="@{../static/css/style1.css}">
+    <link rel="stylesheet" th:href="@{../static/css/menu.css}">
 </head>
 <body>
 <ul class="main-menu">
@@ -34,13 +34,13 @@
     <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
 </ul>
 <form>
-<div th:each="meter:${meters}">
-    <a th:href="@{/meters/{id}(id=${meter.getId()})}"
-       th:text="${meter.getName()+', номер '+meter.getNumber()+', показники '+meter.getIndex()}"></a>
-</div>
+    <div th:each="person:${people}">
+        <a th:href="@{/people/{id}(id=${person.getId()})}"
+           th:text="${person.getFirstName()+', '+person.getSecondName()}"></a>
+    </div>
 </form>
-<form th:method="GET" th:action="@{/meters/save/{address_id}(address_id=${address.getId()})}">
-    <input type="submit" value="Додати лічильник"/>
+<form th:method="GET" th:action="@{/people/new}">
+    <input type="submit" value="Додати користувача"/>
 </form>
 
 </body>
