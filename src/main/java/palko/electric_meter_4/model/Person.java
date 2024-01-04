@@ -38,5 +38,15 @@ public class Person {
     private String email;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Address> addresses;
+    @Column(name = "password")
+    @NotEmpty(message = "Це поле не повинно бути порожнім")
+    private String password;
+    @Column(name = "role")
+    private String role;
+    @Column(name = "username")
+    @Size(min = 2,max = 20,message = "Це поле повинно бути від 2 до 20 символів")
+    @NotEmpty(message = "Це поле не повинно бути порожнім")
+    private String username;
+
 
 }

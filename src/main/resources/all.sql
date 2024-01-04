@@ -8,7 +8,9 @@ CREATE table person
     name_company   varchar(50),
     number_company int,
     username       varchar(50),
-    password       varchar
+    password varchar not null ,
+    role varchar
+
 );
 CREATE table address
 (
@@ -44,6 +46,6 @@ DROP table index;
 DROP table meter;
 DROP table address;
 DROP table person;
-DROP table company;
-alter table meter
+
+alter table
     add column name varchar;
