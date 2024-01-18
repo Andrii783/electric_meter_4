@@ -23,16 +23,16 @@
             </li>
         </ul>
     </li>
-<!--    <li>-->
-<!--        <a th:href="@{/people/{id}(id=${person.getId()})}">Споживач</a>-->
-<!--    </li>-->
-<!--    <li>-->
-<!--        <a th:href="@{/addresses/{id}(id=${person.getId()})}">Адреса</a>-->
-<!--    </li>-->
+    <li>
+        <a th:href="@{/people/home}">Споживач</a>
+    </li>
+    <li>
+        <a th:href="@{/addresses/home}">Адреса</a>
+    </li>
     <li><a href="/ьуеук">Лічильники</a></li>
-    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+    <li><a href="/auth/login">Вийти</a></li>
 </ul>
-<form th:method="POST" th:action="@{/addresses/save/{owner_id}(owner_id=${owner_id})}" th:object="${address}">
+<form th:method="POST" th:action="@{/addresses/save}" th:object="${address}">
     <label for="city">Місто: </label>
     <input type="text" th:field="*{city}" id="city">
     <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>

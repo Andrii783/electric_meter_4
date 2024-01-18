@@ -26,14 +26,14 @@
             </li>
         </ul>
     </li>
-    <li><form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}">
+    <li><form th:method="GET" th:action="@{/people/home}">
         <input type="submit" value="Споживач"/>
     </form></li>
-    <li><form th:method="GET" th:action="@{/addresses/{id}(id=${person.getId()})}">
+    <li><form th:method="GET" th:action="@{/addresses/home}">
         <input type="submit" value="Адреса"/>
     </form></li>
     <li><a href="/ьуеук">Лічильники</a></li>
-    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+    <li><a href="/auth/logout">Вийти</a></li>
 </ul>
 <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
     <label for="firstName">Ім'я: </label>

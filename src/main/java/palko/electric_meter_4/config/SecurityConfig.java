@@ -1,53 +1,56 @@
 package palko.electric_meter_4.config;
 
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import palko.electric_meter_4.service.PersonDetailsService;
-
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Configuration
+public class SecurityConfig {
     private final PersonDetailsService personDetailsService;
 
-    @Autowired
     public SecurityConfig(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
     }
-    @Override
-    @SneakyThrows
-    protected void configure(HttpSecurity http){
-        http.authorizeRequests()
-                .antMatchers("/admin/**","/products/add","/products/delete/{id}","/products/edit/{id}").hasRole("ADMIN")
-                .antMatchers("/auth/login","/auth/registration","/error").permitAll()
-                .anyRequest().hasAnyRole("USER","ADMIN")
-                .and()
-                .formLogin().loginPage("/auth/login")
-                .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/products",true)
-                .failureUrl("/auth/login?error")
-                .and()
-                .logout()
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/auth/login");
-
-
-    }
-    @Override
-    @SneakyThrows
-    protected void configure(AuthenticationManagerBuilder auth){
-        auth.userDetailsService(personDetailsService).passwordEncoder(getPasswordEncoder());
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return new BCryptPasswordEncoder();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/auth/login", "/auth/registration", "/error").permitAll()
+                                .anyRequest().hasAnyRole("USER", "ADMIN")
+                )
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/auth/login")
+                                .loginProcessingUrl("/process_login")
+                                .defaultSuccessUrl("/addresses/home", true)
+                                .failureUrl("/auth/login?error")
+                )
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessUrl("/auth/login")
+                );
+
+        return http.build();
+    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return (web)->web.ignoring().requestMatchers("/error");
     }
 }

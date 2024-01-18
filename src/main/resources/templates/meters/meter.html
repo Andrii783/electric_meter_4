@@ -25,13 +25,13 @@
         </ul>
     </li>
     <li>
-        <a th:href="@{/people/{id}(id=${person.getId()})}">Споживач</a>
+        <a th:href="@{/people/home}">Споживач</a>
     </li>
     <li>
-        <a th:href="@{/addresses/{id}(id=${person.getId()})}">Адреса</a>
+        <a th:href="@{/addresses/home}">Адреса</a>
     </li>
     <li><a href="/ьуеук">Лічильники</a></li>
-    <li><a href="http://localhost:8082/index">Увійти/Зареєструватися</a></li>
+    <li><a href="/auth/logout">Вийти</a></li>
 </ul>
 <form>
     <table>
@@ -50,6 +50,7 @@
                 <div th:each="meter:${meters}">
                     <a th:href="@{/indexes/{id}(id=${meter.getId()})}"
                        th:text="${meter.getName()+', лічильник № '+meter.getNumber()}"></a>
+                    <a th:href="@{/meters/generate/{id}(id=${meter.getId()})}">Завантажити звіт</a>
                 </div>
             </td>
 

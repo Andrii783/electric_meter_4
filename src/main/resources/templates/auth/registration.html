@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        div.error {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: grey;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+    <label for="firstName">First name: </label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+    <label for="secondName">Second name: </label>
+    <input type="text" th:field="*{secondName}" id="secondName">
+    <div th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}"></div>
+    <label for="userName">Username: </label>
+    <input type="text" th:field="*{username}" id="userName">
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    <label for="phone">Phone: </label>
+    <input type="tel" th:field="*{phone}" id="phone">
+    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+    <label for="email">Email: </label>
+    <input type="email" th:field="*{email}" id="email">
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <label for="password">Password: </label>
+    <input type="password" th:field="*{password}" id="password">
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

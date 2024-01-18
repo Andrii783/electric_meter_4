@@ -3,11 +3,13 @@ package palko.electric_meter_4.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import palko.electric_meter_4.model.Address;
+import palko.electric_meter_4.security.PersonDetails;
 import palko.electric_meter_4.service.AddressService;
 import palko.electric_meter_4.service.MeterService;
 import palko.electric_meter_4.service.PersonService;
@@ -35,10 +37,10 @@ public class AddressController {
         return "addresses/getAll";
     }
 
-    @GetMapping("/{id}")
-    public String getAddressId(Model model, @PathVariable("id") int id) {
-        model.addAttribute("addresses", addressService.getAllByOwnerId(id));
-        model.addAttribute("person",personService.getById(id));
+    @GetMapping("/home")
+    public String getAddressId(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
+        model.addAttribute("addresses", addressService.getAllByOwnerId(personDetails.getPerson().getId()));
+        model.addAttribute("person",personService.getById(personDetails.getPerson().getId()));
         model.addAttribute("meters",meterService.getAll());
 
         return "addresses/address";
@@ -50,17 +52,17 @@ public class AddressController {
         return "addresses/newAddress";
     }
 
-    @PostMapping("/save/{owner_id}")
+    @PostMapping("/save")
     public String save(@ModelAttribute("address") @Valid Address address,
-                       BindingResult bindingResult, @PathVariable("owner_id") int owner_id,Model model) {
+                       BindingResult bindingResult, @AuthenticationPrincipal PersonDetails personDetails,Model model) {
         if (bindingResult.hasErrors()) {
             return "addresses/newAddress";
         }
-        model.addAttribute("person",personService.getById(owner_id));
-        address.setOwner(personService.getById(owner_id));
+        model.addAttribute("person",personService.getById(personDetails.getPerson().getId()));
+        address.setOwner(personService.getById(personDetails.getPerson().getId()));
         Address address1 = addressService.save(address);
 
-        return "redirect:/addresses/" + address1.getOwner().getId();
+        return "redirect:/addresses/home";
     }
 
     @GetMapping("/edit/{id}")

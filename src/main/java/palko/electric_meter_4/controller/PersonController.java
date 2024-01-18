@@ -2,11 +2,13 @@ package palko.electric_meter_4.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import palko.electric_meter_4.model.Person;
+import palko.electric_meter_4.security.PersonDetails;
 import palko.electric_meter_4.service.AddressService;
 import palko.electric_meter_4.service.PersonService;
 
@@ -29,12 +31,12 @@ public class PersonController {
         return "people/getAll";
     }
 
-    @GetMapping("/{id}")
-    public String getByID(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personService.getById(id));
-        model.addAttribute("address", addressService.getById(id));
-        model.addAttribute("addresses", personService.getAllAddressesPersonId(id));
-        model.addAttribute("meters", personService.getAllMetersByPersonId(id));
+    @GetMapping("/home")
+    public String getByID(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
+        model.addAttribute("person", personService.getById(personDetails.getPerson().getId()));
+        model.addAttribute("address", addressService.getById(personDetails.getPerson().getId()));
+        model.addAttribute("addresses", personService.getAllAddressesPersonId(personDetails.getPerson().getId()));
+        model.addAttribute("meters", personService.getAllMetersByPersonId(personDetails.getPerson().getId()));
         return "people/person";
     }
 

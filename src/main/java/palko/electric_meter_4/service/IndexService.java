@@ -39,5 +39,8 @@ public class IndexService {
         return jdbcTemplate.query("SELECT * FROM index WHERE meter_id=?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Index.class));
     }
+    public List<Index> getTwoLast(int meterId){
+        return jdbcTemplate.query("SELECT * FROM index WHERE meter_id=? ORDER BY date desc LIMIT 2",new Object[]{meterId}, new BeanPropertyRowMapper<>(Index.class));
+    }
 
 }
