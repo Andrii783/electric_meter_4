@@ -37,7 +37,7 @@ public class ReportGenerator {
         contentStream.showText("Звіт");
         contentStream.setFont(font, 14);
         contentStream.newLineAtOffset(-225, -40);
-        String formattedDate = LocalDate.now(ZoneId.of("Europe/Kiev")).format(DateTimeFormatter.ofPattern("MMMM yyyy 'рік'"));
+        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM yyyy 'рік'",Locale.UK));
         contentStream.showText("Дата: " + formattedDate);
         contentStream.newLineAtOffset(0, -20);
         contentStream.showText("Номер лічильника: " + meterNumber);
