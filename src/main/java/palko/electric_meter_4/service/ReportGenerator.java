@@ -5,13 +5,18 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @Service
 public class ReportGenerator {
@@ -32,7 +37,7 @@ public class ReportGenerator {
         contentStream.showText("Звіт");
         contentStream.setFont(font, 14);
         contentStream.newLineAtOffset(-225, -40);
-        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM yyyy 'рік'"));
+        String formattedDate = LocalDate.now(ZoneId.of("Europe/Kiev")).format(DateTimeFormatter.ofPattern("MMMM yyyy 'рік'"));
         contentStream.showText("Дата: " + formattedDate);
         contentStream.newLineAtOffset(0, -20);
         contentStream.showText("Номер лічильника: " + meterNumber);
