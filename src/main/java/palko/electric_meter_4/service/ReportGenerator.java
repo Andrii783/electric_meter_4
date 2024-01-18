@@ -22,7 +22,7 @@ public class ReportGenerator {
         document.addPage(page);
 
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        PDFont font = PDType0Font.load(document, new File("CaviarDreams.ttf"));
+        PDFont font = PDType0Font.load(document, new File("../java/CaviarDreams.ttf"));
         contentStream.setFont(font, 30);
 
         contentStream.beginText();
