@@ -3,10 +3,8 @@ package palko.electric_meter_4.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +22,7 @@ public class ReportGenerator {
         document.addPage(page);
 
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        PDFont font = PDType0Font.load(document, new File("/CaviarDreams.ttf"));
+        PDFont font = PDType0Font.load(document, new File("CaviarDreams.ttf"));
         contentStream.setFont(font, 30);
 
         contentStream.beginText();
