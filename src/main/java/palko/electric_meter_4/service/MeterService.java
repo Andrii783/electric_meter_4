@@ -10,7 +10,7 @@ import palko.electric_meter_4.repository.MeterRepository;
 import java.util.List;
 
 @Service
-public class MeterService {
+public class  MeterService {
     private final MeterRepository meterRepository;
     private final JdbcTemplate jdbcTemplate;
 

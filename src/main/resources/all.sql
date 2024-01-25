@@ -47,5 +47,3 @@ DROP table meter;
 DROP table address;
 DROP table person;
 
-alter table
-    add column name varchar;
