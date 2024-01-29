@@ -1,12 +1,10 @@
 package palko.electric_meter_4.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,9 +16,7 @@ import palko.electric_meter_4.model.Index;
 import palko.electric_meter_4.model.Meter;
 import palko.electric_meter_4.service.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -33,12 +29,14 @@ public class MeterController {
     private final MeterService meterService;
     private final AddressService addressService;
     private final IndexService indexService;
+    private final ReportGenerator reportGenerator;
 
     @Autowired
-    public MeterController(MeterService meterService, AddressService addressService, IndexService indexService) {
+    public MeterController(MeterService meterService, AddressService addressService, IndexService indexService, ReportGenerator reportGenerator) {
         this.meterService = meterService;
         this.addressService = addressService;
         this.indexService = indexService;
+        this.reportGenerator = reportGenerator;
     }
 
 
@@ -107,7 +105,7 @@ public class MeterController {
         List<Index> indexList = indexService.getTwoLast(id);
         int current = indexList.get(0).getIndex();
         int previous= indexList.get(1).getIndex();
-        ByteArrayOutputStream stream=ReportGenerator.generateReport(id, current, previous);
+        ByteArrayOutputStream stream= reportGenerator.generateReport(id, current, previous);
         byte [] file=stream.toByteArray();
         ByteArrayResource resource = new ByteArrayResource(file);
         String fileName = "Звіт за "+ LocalDate.now();
